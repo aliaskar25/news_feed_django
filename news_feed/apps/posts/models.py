@@ -1,6 +1,6 @@
 from django.db import models
 
-from apps.blogs.models import Blog
+from apps.users.models import Blog
 
 
 class Post(models.Model):
