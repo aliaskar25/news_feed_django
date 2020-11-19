@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <hr>
+    <h1>{{ object }}</h1>
+
+    <h2>Followers: 
+        {% for follower in object.followers.all %}
+            {{ follower }}
+        {% endfor %} 
+    </h2>
+    <h2>Follows: 
+        {% for follows in object.follows.all %}
+            {{ follows }}
+        {% endfor %}
+    </h2>
+
+    {% if not request.user.is_anonymous %}
+    <form action="{% url 'follow-toggle' object.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="follow">
+    </form>
+    {% endif %}
+
+    <h2>{{ object.blog }}</h2>
+    <ul>
+        {% for post in object.blog.posts.all %}
+        <li>{{ post }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

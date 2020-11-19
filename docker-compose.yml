@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+    web:
+        build: .
+        command: bash -c 'python3 news_feed/manage.py makemigrations &&
+                          python3 news_feed/manage.py migrate && 
+                          python3 news_feed/manage.py runserver 0.0.0.0:8000'
+        volumes: 
+            - .:/code
+        ports: 
+            - "1234:8000"
+        restart: always

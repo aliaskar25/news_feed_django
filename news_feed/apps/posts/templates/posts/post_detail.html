@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <div>
+        <p><a href="{% url 'post_detail_url' object.pk %}">{{ object.title }}</a></p>
+        <p>{{ object.description }}</p>
+        <p>{{ object.created_date }}</p>
+        <p>by: <a href="{% url 'user_detail_url' object.blog.user.pk %}">{{ object.blog.user.username }}</a></p>
+
+        {% if not request.user.is_anonymous %}
+            <form action="{% url 'read-post-url' object.pk %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="I read it">
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
