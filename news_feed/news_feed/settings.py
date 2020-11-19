@@ -2,8 +2,15 @@ from pathlib import Path
 
 import os
 
+import environ
+
+
+env = environ.Env()
+environ.Env.read_env()
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = ')t-dny67shf$kb0br(m61c6sr2wz)(5jd-ria$0r$t_$6xc#wy'
+SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = True
 
@@ -89,3 +96,10 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env('MAIL_USERNAME')
+EMAIL_HOST_PASSWORD = env('MAIL_PASSWORD')

@@ -10,6 +10,7 @@ class User(AbstractUser):
         'self', related_name='followers', symmetrical=False, blank=True
     )
     password = models.CharField(max_length=69)
+    email = models.EmailField(unique=True)
 
     def __str__(self):
         return self.username
