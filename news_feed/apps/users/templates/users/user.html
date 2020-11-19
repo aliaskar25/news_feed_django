@@ -18,7 +18,7 @@
     {% if not request.user.is_anonymous %}
     <form action="{% url 'follow-toggle' object.pk %}" method="post">
         {% csrf_token %}
-        <input type="submit" name="follow">
+        <input type="submit" value="follow">
     </form>
     {% endif %}
 

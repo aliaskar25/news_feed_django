@@ -13,12 +13,19 @@ class PostListView(ListView):
     template_name = 'posts/post_list.html'
 
     def get_queryset(self):
-        if not self.request.user.is_anonymous:
-            current_user = self.request.user
-            qs = Post.objects.select_related('blog', 'blog__user').filter(blog__user__in=current_user.follows.all())
-            qs = qs.order_by("-id")
-            return qs
         return Post.objects.select_related('blog', 'blog__user').all().order_by('-id')
+
+    
+class MyFeedView(ListView):
+    model = Post
+    template_name = 'posts/post_list.html'
+
+    def get_queryset(self):
+        current_user = self.request.user
+        qs = Post.objects.select_related('blog', 'blog__user').\
+             filter(blog__user__in=current_user.follows.all()).\
+             order_by("-id")
+        return qs
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -43,3 +50,13 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostDetailView(DetailView):
     queryset = Post.objects.all()
     template_name = 'posts/post_detail.html'
+
+
+def read(request, pk):
+    if request.method == 'POST':
+        post = Post.objects.get(pk=pk)
+        if request.user.is_authenticated:
+            if request.user == post.blog.user:
+                return redirect('post_detail_url', pk=pk)
+            post.user_read.add(request.user)
+    return redirect('post_detail_url', pk=pk)
