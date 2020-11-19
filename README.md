@@ -5,5 +5,5 @@ SECRET_KEY="any word" \
 
 2. **in terminal run:** docker-compose up --build \
 3. **in other terminal run:** docker-compose run web news_feed/manage.py createsuperuser \
-4. **test it **\
+4. **test it**\
 
