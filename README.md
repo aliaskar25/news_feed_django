@@ -3,7 +3,7 @@ MAIL_USERNAME="your@gmail.com" \
 MAIL_PASSWORD="gmail's password for app" #see here:# https://support.google.com/accounts/answer/185833?hl=en# \
 SECRET_KEY="any word" \
 
-2. #run: docker-compose up --build \
-3. in other terminal #run: # docker-compose run web news_feed/manage.py createsuperuser \
+2. **run:** docker-compose up --build \
+3. **in other terminal run: ** docker-compose run web news_feed/manage.py createsuperuser \
 4. test it \
 
